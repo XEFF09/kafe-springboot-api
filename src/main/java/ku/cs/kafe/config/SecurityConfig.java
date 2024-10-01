@@ -26,6 +26,12 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/signup")).permitAll()
+                                .requestMatchers(
+                                        new AntPathRequestMatcher("/menus/add")).hasRole("ADMIN")
+                                .requestMatchers(
+                                        new AntPathRequestMatcher("/categories/add")).hasRole("ADMIN")
+                                .requestMatchers(
+                                        new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ).formLogin((form) -> form
                         .loginPage("/login")
@@ -47,8 +53,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
+    }
 }

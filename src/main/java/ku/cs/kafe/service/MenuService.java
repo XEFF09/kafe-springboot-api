@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -34,6 +35,9 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
+    public Menu getOneById(UUID id) {
+        return menuRepository.findById(id).get();
+    }
 
     public void createMenu(MenuRequest request) {
         Menu record = modelMapper.map(request, Menu.class);
